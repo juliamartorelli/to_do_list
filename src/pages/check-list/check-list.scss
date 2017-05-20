@@ -1,0 +1,16 @@
+page-check-list {
+    .menor {
+        color: lightgreen;
+        font-size: 12px;
+    }
+    .tachado {
+        text-decoration: line-through;
+        color: lightgrey; 
+    }
+
+    .tachado + .menor{
+        color: lightgrey; 
+    }
+
+
+}
