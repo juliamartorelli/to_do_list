@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { TarefasService } from '../../providers/tarefas-service';
 import { ProjetosService } from '../../providers/projetos-service';
 import { Calendar } from '@ionic-native/calendar';
@@ -25,7 +25,8 @@ export class TarefaPage {
     public navParams: NavParams,
     public tarefasServico: TarefasService,
     public projetosService: ProjetosService,
-    public calendario: Calendar) {
+    public calendario: Calendar,
+    public alertCtrl: AlertController) {
 
     this.projetos = projetosService.getProjetos();
     this.codigoTarefa = navParams.get('codigo');
@@ -57,9 +58,17 @@ export class TarefaPage {
     }
   }
 
-  public openCalendar(): void {
+  public saveCalendar(): void {
+
     let d = new Date();
-    this.calendario.openCalendar(d);
+    d.setDate(this.d.getDate());
+    d.setMonth(this.d.getMonth());
+    d.setFullYear(this.d.getFullYear());
+
+    this.calendario.createEventInteractively(this.descricao, '', '', d, d).then(
+      (msg) => {console.log(msg);},
+      (err) => {console.log(err);}
+    );
   }
 
   alterar() {
